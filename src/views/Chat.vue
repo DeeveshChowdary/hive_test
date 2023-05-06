@@ -1,28 +1,27 @@
 <template>
-  <div @click="onClickOutside" class="w-full h-screen absolute text-center flex justify-center items-center">
-    <div class="w-screen h-screen md:w-3/4 md:h-4/5 flex relative border rounded-lg border-blue-300 overflow-hidden">
+  <div @click="onClickOutside" class="w-full h-screen absolute text-center flex justify-center items-center bg-gray-100">
+    <div class="w-screen h-screen md:w-3/4 md:h-4/5 flex relative border rounded-lg border-green-300 overflow-hidden bg-gray-100">
       <!-- left -->
       <transition-group :name="currentChat.visible ? 'fade' : 'fadeBack'">
-        <div v-if="!currentChat.visible && mq.smMinus || mq.smPlus" key="smleft" class="md:border-r w-full h-full md:w-auto top-0 left-0 absolute md:relative border-blue-300 min-w-7xl flex flex-col">
-          <div class="flex relative items-center px-8 py-3 border-b border-blue-300">
+        <div v-if="!currentChat.visible && mq.smMinus || mq.smPlus" key="smleft" class="md:border-r w-full h-full md:w-auto top-0 left-0 absolute md:relative border-green-300 min-w-7xl flex flex-col">
+          <div class="flex relative items-center px-8 py-3 border-b border-green-300">
             <div class="w-10 h-10 md:w-14 md:h-14 bg-center bg-no-repeat bg-cover" :style="{backgroundImage:`url(${user.avatar})`}"></div>
-            <div class="flex-col text-left mx-5 text-white">
+            <div class="flex-col text-left mx-5 text-black">
               <div class="text-md font-bold">{{ user.username }}</div>
               <div class="text-xs text-lime-600">{{ user.id }}</div>
             </div>
             <div ref="menuButton" class="md:hidden ml-auto">
-              <button class="text-white p-2 rounded-full cursor-pointer" @click="menuOpen = !menuOpen"><MenuIcon class="h-5 w-5 text-white"/></button>
+              <button class="text-black p-2 rounded-full cursor-pointer" @click="menuOpen = !menuOpen"><MenuIcon class="h-5 w-5 text-black"/></button>
             </div>
             <div ref="menu" class="hidden md:flex ml-5">
-              <button class="text-white p-2 rounded-full cursor-pointer" @click="setLocation('new')"><PlusIcon class="h-5 w-5 text-white"/></button>
-              <button class="text-white p-2 ml-2 rounded-full cursor-pointer" @click="setLocation('chats')"><ChatAlt2Icon class="h-5 w-5 text-white"/></button>
-              <button class="text-white p-2 ml-2 rounded-full cursor-pointer" @click="setLocation('config')"><CogIcon class="h-5 w-5 text-white"/></button>
+              <button class="text-black p-2 rounded-full cursor-pointer" @click="setLocation('new')"><PlusIcon class="h-5 w-5 text-black"/></button>
+              <button class="text-black p-2 ml-2 rounded-full cursor-pointer" @click="setLocation('chats')"><ChatAlt2Icon class="h-5 w-5 text-black"/></button>
             </div>
             <transition name="message">
               <div v-if="menuOpen && mq.smMinus" class="flex z-10 absolute right-5 top-20 bg-slate-800 border rounded-md border-blue-300 px-5 md:hidden ml-5">
-                <button class="text-white p-2 rounded-full cursor-pointer" @click="setLocation('new')"><PlusIcon class="h-5 w-5 text-white"/></button>
-                <button class="text-white p-2 ml-2 rounded-full cursor-pointer" @click="setLocation('chats')"><ChatAlt2Icon class="h-5 w-5 text-white"/></button>
-                <button class="text-white p-2 ml-2 rounded-full cursor-pointer" @click="setLocation('config')"><CogIcon class="h-5 w-5 text-white"/></button>
+                <button class="text-black p-2 rounded-full cursor-pointer" @click="setLocation('new')"><PlusIcon class="h-5 w-5 text-black"/></button>
+                <button class="text-black p-2 ml-2 rounded-full cursor-pointer" @click="setLocation('chats')"><ChatAlt2Icon class="h-5 w-5 text-black"/></button>
+                
               </div>
             </transition>
           </div>
@@ -43,7 +42,7 @@
                       <div @click="loadChat(chat)" :class="[ chat === chats[0] ? 'mt-5' : 'mt-2', chat._id === currentChat.id ? 'bg-gray-900 border-transparent' : 'bg-gray-800']" v-for="chat in chats" :key="chat._id" class="hover:bg-gray-900 cursor-pointer border-transparent transition items-center grid grid-cols-6 mb-2 mx-5 p-5 max-w-full rounded-lg">
                         <div :style="{ backgroundImage: `url(${chat.peer?.avatar})`}" class="w-14 h-14 col-end-2 bg-center bg-no-repat bg-cover rounded-full">
                         </div>
-                        <div class="col-span-3 col-start-2 flex-col max-w-full text-left mx-5 text-white">
+                        <div class="col-span-3 col-start-2 flex-col max-w-full text-left mx-5 text-black">
                           <div class="text-md font-bold">{{ chat.peer?.username }}</div>
                           <div class=" w-9/12">
                             <div :ref="`snapshot-${chat.peer?.id}`" class="text-sm truncate max-w-full text-gray-600">{{ chat.snapshot }}</div>
@@ -64,30 +63,27 @@
                 <div class="w-full h-full absolute" key="new" v-if="location === 'new'">
                   <div class="text-center -mt-10 flex flex-col justify-center items-center h-full text-gray-600 text-sm">
                     <p class="mt-5 font-bold">Share this address to start a chat</p>
-                    <div class="text-white font-bold text-xl mt-5">{{ user.id }}</div>
+                    <div class="text-black font-bold text-xl mt-5">{{ user.id }}</div>
                     <input v-model="connectId" class="text-center bg-transparent font-bold border-none mt-5" type="text" placeholder="Type here an address">
                     <div>
                       <button class="hover:border-blue-300 border-transparent border mt-5 text-lime-600 rounded-lg px-4 py-2" @click="setLocation('chats')">Go Back</button>
-                      <button class="border-blue-300 hover:bg-transparent ml-5 hover:text-lime-600 bg-lime-600 border-transparent border mt-5 text-white rounded-lg px-4 py-2" @click="newChat">Connect chat</button>
+                      <button class="border-blue-300 hover:bg-transparent ml-5 hover:text-lime-600 bg-lime-600 border-transparent border mt-5 text-black rounded-lg px-4 py-2" @click="newChat">Connect chat</button>
                     </div>
                   </div>
                 </div>
-                <div class="w-full h-full absolute" key="config" v-if="location === 'config'">
-                  <div>config</div>
-                  <button @click="goBack()">Go back</button>
-                </div>
+                
               </transition-group>
             </div>
           </div>
         </div>
         <!-- right -->
-        <div v-if="currentChat.visible && mq.smMinus || mq.smPlus" key="smright" class="top-0 left-0 w-full h-full bg-slate-800 absolute md:relative overflow-hidden">
+        <div v-if="currentChat.visible && mq.smMinus || mq.smPlus" key="smright" class="top-0 left-0 w-full h-full bg-white-800 absolute md:relative overflow-hidden">
           <transition-group :name="currentChat.visible ? 'fadeBack' : 'fade'">
             <div v-if="currentChat.visible" key="chat-view" class="chatContainer absolute w-full h-full">
               <div class="relative w-full h-full flex flex-col">
                 <div class="chatHeader flex items-center px-8 py-3 border-b border-blue-300">
                   <div>
-                    <ArrowLeftIcon class="h-5 w-5 text-white cursor-pointer" @click="unloadChat"/>
+                    <ArrowLeftIcon class="h-5 w-5 text-black cursor-pointer" @click="unloadChat"/>
                   </div>
                   <div v-show="currentChat.typing" id="wave" class="ml-10 flex">
                     <h1 class="text-sm md:text-md mr-4 text-lime-600">Typing</h1>
@@ -97,7 +93,7 @@
                       <span class="dot inline-block w-1.5 h-1.5 delay-200 rounded-full mr-1 bg-lime-600"></span>
                     </div>
                   </div>
-                  <div class="flex-col text-right ml-auto mx-5 text-white">
+                  <div class="flex-col text-right ml-auto mx-5 text-black">
                     <div class="text-md font-bold">{{ currentChat.peer?.username }}</div>
                     <div class="text-xs text-lime-600">{{ currentChat.peer?.id }}</div>
                   </div>
@@ -107,17 +103,17 @@
                   <div ref="msgContainer" :class="[ currentChat.allowScrollAnimation ? 'scroll-smooth' : '' ]" class="overflow-auto flex relative h-full scrollbar scrollbar-thin scrollbar-thumb-gray-900 scrollbar-track-gray-800">
                     <div class="mt-auto pt-5 bottom-0 w-full">
                       <transition-group name="message">
-                        <div v-for="(message, i) in currentChat.messages" :class="[ message.sender !== currentChat.messages[i+1]?.sender ? 'mb-5' : 'mb-1' ]" :key="message._id"  class="text-white text-left flex px-10 md:px-20">
-                          <div :class="[message.sender !== currentChat.messages[i-1]?.sender ? 'rounded-tr-sm' : 'rounded-tr-md']" class="ml-auto py-1 px-2 max-w-lg flex items-baseline text-white rounded-md bg-green-900" v-if="message.sender === user.id">
-                            <p class="text-white break-all">
+                        <div v-for="(message, i) in currentChat.messages" :class="[ message.sender !== currentChat.messages[i+1]?.sender ? 'mb-5' : 'mb-1' ]" :key="message._id"  class="text-black text-left flex px-10 md:px-20">
+                          <div :class="[message.sender !== currentChat.messages[i-1]?.sender ? 'rounded-tr-sm' : 'rounded-tr-md']" class="ml-auto py-1 px-2 max-w-lg flex items-baseline text-black rounded-md bg-green-900" v-if="message.sender === user.id">
+                            <p class="text-black break-all">
                               {{ message.content }}
                             </p>
                             <span class="text-xs ml-5 mt-auto font-thin">
                               {{ timeStampToHour(message.timestamp) }}
                             </span>
                           </div>
-                          <div :class="[message.sender !== currentChat.messages[i-1]?.sender ? 'rounded-tl-sm' : 'rounded-tl-md']" class="py-1 px-2 max-w-lg text-white rounded-md flex items-baseline bg-gray-700" v-else>
-                            <p class="text-white break-all">
+                          <div :class="[message.sender !== currentChat.messages[i-1]?.sender ? 'rounded-tl-sm' : 'rounded-tl-md']" class="py-1 px-2 max-w-lg text-black rounded-md flex items-baseline bg-gray-700" v-else>
+                            <p class="text-black break-all">
                               {{ message.content }}
                             </p>
                             <span class="text-xs ml-5 mt-auto font-thin">
@@ -134,7 +130,7 @@
                     
                   </div>
                   <div class="w-full">
-                    <input @keydown="typingController" @keydown.enter="sendMessage" v-model="currentChat.currentMessage" style="outline: none" type="text" class="w-full focus:ring-0 text-white outline-none bg-transparent border-none" placeholder="Type a message here">
+                    <input @keydown="typingController" @keydown.enter="sendMessage" v-model="currentChat.currentMessage" style="outline: none" type="text" class="w-full focus:ring-0 text-black outline-none bg-transparent border-none" placeholder="Type a message here">
                   </div>
                 </div>
               </div>
@@ -173,8 +169,12 @@
                   </filter>
                   </defs>
                 </svg>
-                <div>
-                  <h1 class="text-lime-600 font-bold mt-5 text-2xl">Is nice to chat with someone</h1>
+                <div >
+                  <h1 style="max-width: 100%; max-height: 100%;" class="text-lime-600 font-bold mt-5 ">
+                    
+                    <img style="max-width: 100%; max-height: 100%;" src="https://readme-typing-svg.herokuapp.com/?size=30&duration=5001&color=2d7e5e&vCenter=true&center=true&width=460&lines=Chat+securely+with+someone;Chat+with+someone"> 
+
+                  </h1>
                   <p class="text-gray-600 mt-5 text-sm max-w-md">
                     You can select a chat with someone by clicking on their name in the left sidebar
                   </p>

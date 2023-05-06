@@ -8,57 +8,59 @@
       flex
       justify-center
       items-center
+      bg-gray-100
     "
+
+    style="background-image: url('path/to/image.jpg'); background-repeat: no-repeat; background-size: cover;"
   >
     <div class="flex flex-col">
       <div class="py-10 flex flex-col text-center justify-center items-center">
-        <h1 class="text-6xl font-bold text-indigo-600">Connect your account</h1>
-        <p class="mt-5 text-sm max-w-lg text-gray-500">
+        <h1 class="text-6xl font-bold text-green-600">Connect your account</h1>
+        <p class="mt-5 text-sm max-w-lg text-blue-500">
           We are using your metamask public key means your eth address as the id. sothat it secure the privacy no one can access you chat.
         </p>
       </div>
       <div class="relative">
-        <div v-show="isLoading" class="absolute flex items-center justify-center w-full h-full z-10 bg-gray-800">
+        <div v-show="isLoading" class="absolute flex items-center justify-center w-full h-full z-10 bg-white-800">
           <loader/>
         </div>
         <div class="grid grid-cols-4">
-          <button @click="isGen = true; getAccount()" :class="[isGen ? 'border-indigo-600 text-indigo-600 border-b-gray-700' : 'text-white border-gray-700 border-b-indigo-600']" class="hover:border-indigo-600 hover:text-indigo-600 border rounded-tl-lg col-span-2 px-10 py-2 border-dashed">Register</button>
-          <button @click="isGen = false; clear()" :class="[!isGen ? 'border-indigo-600 text-indigo-600 border-b-gray-700' : 'text-white border-gray-700 border-b-indigo-600']" class="hover:border-indigo-600 hover:text-indigo-600 border rounded-tr-lg col-span-2 px-10 py-2 border-dashed">Login</button>
+          <button @click="isGen = true; getAccount()" :class="[isGen ? 'border-green-600 text-green-600 border-b-blue-700' : 'text-black border-blue-700 border-b-green-600']" class="hover:border-green-600 hover:text-green-600 border rounded-tl-lg col-span-4 px-10 py-2 ">Register</button>
         </div>
-        <div v-show="isGen" class="border grid grid-cols-3 border-indigo-600 border-t-transparent border-dashed rounded-bl-lg rounded-br-lg">
+        <div v-show="isGen"  class="border grid grid-cols-3 border-green-600 border-t-transparentrounded-bl-lg rounded-br-lg">
           <div class="col-span-3 pt-10 pb-2 flex items-center justify-center">
             <div :style="{ backgroundImage: `url('${userForm.avatar}')` }" class="w-32 h-32 bg-center bg-contain bg-no-repeat">
 
             </div>
           </div>
-          <div class="text-white flex flex-col text-sm uppercase justify-start px-2 py-5">
+          <div class="text-black flex flex-col text-sm uppercase justify-start px-2 py-5">
             <h1>Username</h1>
-            <input v-model="userForm.username" class="text-gray-500 text-center bg-transparent border-transparent outline-none" placeholder="type an username" type="text">
+            <input v-model="userForm.username" class="text-blue-500 text-center bg-transparent border-transparent outline-none" placeholder="type an username" type="text">
           </div>
-          <div class="text-white flex flex-col text-sm uppercase justify-start px-2 py-5">
+          <div class="text-black flex flex-col text-sm uppercase justify-start px-2 py-5">
             <h1>Avatar</h1>
-            <input v-model="userForm.avatar" class="text-gray-500 text-center bg-transparent border-transparent outline-none" placeholder="paste an picture" type="text">
+            <input v-model="userForm.avatar" class="text-blue-500 text-center bg-transparent border-transparent outline-none" placeholder="paste an picture" type="text">
           </div>
-          <div @click="copy" class="text-white cursor-pointer flex flex-col text-sm uppercase justify-start px-2 py-5">
+          <div @click="copy" class="text-black cursor-pointer flex flex-col text-sm uppercase justify-start px-2 py-5">
             <h1>ID</h1>
-            <input disabled v-model="userForm.id" class="text-gray-500 text-center bg-transparent border-transparent outline-none" placeholder="type an username" type="text">
+            <input disabled v-model="userForm.id" class="text-blue-500 text-center bg-transparent border-transparent outline-none" placeholder="type an username" type="text">
           </div>
         </div>
-        <div v-show="!isGen" class="border border-t-transparent grid grid-cols-3 border-indigo-600 border-dashed rounded-bl-lg rounded-br-lg">
+        <div v-show="!isGen" class="border border-t-transparent grid grid-cols-3 border-green-600 border-dashed rounded-bl-lg rounded-br-lg">
           <div class="col-span-3 pt-10 pb-2 flex items-center justify-center">
             <div :style="{ filter: 'invert(100%)', backgroundImage: `url('http://www.team-energy.nl/wp-content/uploads/2019/12/HandschoenRechts-1.png')` }" class="w-32 h-32 bg-center bg-contain bg-no-repeat">
 
             </div>
           </div>
-          <div class="text-white flex flex-col text-sm col-start-2 uppercase justify-start px-2 py-5">
+          <div class="text-black flex flex-col text-sm col-start-2 uppercase justify-start px-2 py-5">
             <h1>ID</h1>
-            <input disabled v-model="userForm.id" class="text-gray-500 text-center bg-transparent border-transparent outline-none" placeholder="type your id" type="text">
+            <input disabled v-model="userForm.id" class="text-blue-500 text-center bg-transparent border-transparent outline-none" placeholder="type your id" type="text">
           </div>
         </div>
       </div>
       <div class="grid grid-cols-3 mt-10 gap-10">
-        <button @click="$router.go(-1)" class="hover:border-indigo-600 hover:text-indigo-600 p-2 col-span-2 10 border border-gray-700 border-dashed rounded-lg text-sm text-white">Get me back</button>
-        <button @click="next" class="border border-transparent hover:border-indigo-600 hover:bg-transparent p-2 10 bg-indigo-600 text-white rounded-lg">Continue</button>
+        <button @click="$router.go(-1)" class="hover:border-green-600 hover:text-green-600 p-2 col-span-2 10 border border-blue-700 rounded-lg text-sm text-black">Take me back</button>
+        <button @click="next" class="border border-transparent hover:border-green-600 hover:bg-transparent p-2 10 bg-green-600 text-black rounded-lg">Continue</button>
       </div>
     </div>
   </div>
